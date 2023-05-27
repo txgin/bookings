@@ -17,4 +17,5 @@
 
 .datepicker {
     z-index: 10000;
+    position: -webkit-sticky;/* safari用の簡易対策  */
 }

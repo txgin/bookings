@@ -1,23 +1,24 @@
 package main
 
 import (
-	"github.com/txgin/bookings/pkg/config"
-	"github.com/txgin/bookings/pkg/handlers"
-	"github.com/txgin/bookings/pkg/render"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
+	"github.com/txgin/bookings/internal/config"
+	"github.com/txgin/bookings/internal/handlers"
+	"github.com/txgin/bookings/internal/render"
+
 	"github.com/alexedwards/scs/v2"
 )
 
 const portNumber = ":8080"
+
 var app config.AppConfig
 var session *scs.SessionManager
 
 func main() {
-	
 
 	app.InProduction = false
 
@@ -28,7 +29,6 @@ func main() {
 	session.Cookie.Secure = app.InProduction
 
 	app.Session = session
-
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
@@ -43,9 +43,8 @@ func main() {
 
 	render.NewTemplates(&app)
 
-
 	fmt.Printf("Starting application on port %s\n", portNumber)
-	
+
 	srv := &http.Server{
 		Addr:    portNumber,
 		Handler: routes(&app),
